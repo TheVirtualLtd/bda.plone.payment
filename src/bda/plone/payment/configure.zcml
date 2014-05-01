@@ -1,16 +1,20 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:i18n="http://namespaces.zope.org/i18n"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
            xmlns:browser="http://namespaces.zope.org/browser">
 
   <i18n:registerTranslations directory="locales" />
 
   <include file="profiles.zcml" />
 
-  <include package=".cash" />
+  <!--include package=".cash" />
   <include package=".debit_order" />
   <include package=".invoice" />
-  <include package=".six_payment" />
+  <include package=".six_payment" /-->
+  <include
+      zcml:condition="installed tvl.payment.dps"
+      package=".pxpay_payment" />
 
   <browser:resource
     name="bda.plone.payment.css"
