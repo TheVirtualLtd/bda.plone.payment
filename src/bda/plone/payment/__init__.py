@@ -9,6 +9,7 @@ from bda.plone.payment.interfaces import IPaymentEvent
 from bda.plone.payment.interfaces import IPaymentSuccessEvent
 from bda.plone.payment.interfaces import IPaymentFailedEvent
 from bda.plone.payment.interfaces import IPaymentSettings
+from plone import api
 
 
 @implementer(IPaymentEvent)
@@ -45,8 +46,13 @@ class Payments(object):
 
     @property
     def vocab(self):
+        site_name = api.portal.get().getId()
         adapters = getAdapters((self.context,), IPayment)
-        return [(_[0], _[1].label) for _ in adapters if _[1].available]
+        if site_name in ['ElectronzUK', 'clearPlone']:
+            return [(_[0], _[1].label) for _ in adapters if _[1].available and
+                    _[0] != u'pxpay_payment']
+        else:
+            return [(_[0], _[1].label) for _ in adapters if _[1].available]
 
     @property
     def default(self):

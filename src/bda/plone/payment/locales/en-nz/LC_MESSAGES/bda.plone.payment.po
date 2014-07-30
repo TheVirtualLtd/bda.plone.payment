@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bda.plone.payment\n"
+"POT-Creation-Date: 2014-06-04 11:51+0000\n"
+"PO-Revision-Date: 2014-05-08 15:40 +1200\n"
+"Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en-nz\n"
+"Language-Name: New Zealand English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: bda.plone.payment\n"
+"X-Is-Fallback-For: en-au\n"
+
+#. Default: "Cash"
+#: ./cash/__init__.py:15
+msgid "cash"
+msgstr "Cash"
+
+#. Default: "Thanks for your Order. You have choosen to pay in cash. Please print displayed order number and hand it at cash desk."
+#: ./cash/cash.pt:28
+msgid "cash_text"
+msgstr "Thank you for you order. You have chosen to pay in cash. Please print the displayed order number and hand it in at the cash desk."
+
+#. Default: "Debit Order"
+#: ./debit_order/__init__.py:13
+msgid "debit_order"
+msgstr "Debit Order"
+
+#. Default: "Thanks for your Order. Your banking account will be charged by order value. As soon as debit order was successful, your offer gets delivered."
+#: ./debit_order/debit_order.pt:28
+msgid "debit_order_text"
+msgstr "Thank you for your order. Your account will be debited by the total order value. As soon as the debit order clears your order will be shipped."
+
+#. Default: "Invoice"
+#: ./invoice/__init__.py:13
+msgid "invoice"
+msgstr "Invoice"
+
+#. Default: "Thanks for your Order. You will receive an Invoice by E-Mail. As soon as we receive the amount at our banking account, your offer gets delivered."
+#: ./invoice/invoice.pt:28
+msgid "invoice_text"
+msgstr "Thank you for your order. You will receive an invoice via email. Once we receive the payment we will ship your order."
+
+#. Default: "Order Received"
+#: ./cash/cash.pt:20
+#: ./debit_order/debit_order.pt:20
+#: ./invoice/invoice.pt:20
+msgid "order_received"
+msgstr "Order Received"
+
+#. Default: "Your Order number: ${number}"
+#: ./cash/cash.pt:25
+#: ./debit_order/debit_order.pt:25
+#: ./invoice/invoice.pt:25
+msgid "order_show_id"
+msgstr "Your Order Number: ${number}"
+
+#. Default: "Payment Aborted"
+#: ./pxpay_payment/aborted.pt:22
+#: ./six_payment/aborted.pt:22
+msgid "payment_aborted"
+msgstr "Payment aborted"
+
+#. Default: "continue"
+#: ./cash/cash.pt:33
+#: ./debit_order/debit_order.pt:33
+#: ./invoice/invoice.pt:34
+msgid "payment_done"
+msgstr "Continue"
+
+#. Default: "Payment Error"
+#: ./pxpay_payment/success.pt:44
+#: ./six_payment/success.pt:35
+msgid "payment_error"
+msgstr "Payment error"
+
+#. Default: "Payment Failed"
+#: ./pxpay_payment/failed.pt:22
+#: ./six_payment/failed.pt:22
+msgid "payment_failed"
+msgstr "Payment failed"
+
+#. Default: "Payment Success"
+#: ./pxpay_payment/success.pt:24
+#: ./six_payment/success.pt:24
+msgid "payment_success"
+msgstr "Payment success"
+
+#. Default: "Auth Code"
+#: ./pxpay_payment/failed.pt:38
+#: ./pxpay_payment/success.pt:34
+msgid "pxpay_authcode"
+msgstr "Auth Code"
+
+#. Default: "Settlement Date"
+#: ./pxpay_payment/failed.pt:39
+#: ./pxpay_payment/success.pt:35
+msgid "pxpay_datesettlement"
+msgstr "Settlement Date"
+
+#. Default: "Transaction Reference"
+#: ./pxpay_payment/failed.pt:40
+#: ./pxpay_payment/success.pt:36
+msgid "pxpay_dpstxnref"
+msgstr "Transaction Reference"
+
+#. Default: "Order Number"
+#: ./pxpay_payment/failed.pt:37
+#: ./pxpay_payment/success.pt:33
+msgid "pxpay_merchantreference"
+msgstr "Order Number"
+
+#. Default: "DPS PaymentExpress"
+#: ./pxpay_payment/__init__.py:21
+msgid "pxpay_payment"
+msgstr "DPS PaymentExpress"
+
+#. Default: "Payment has been aborted."
+#: ./pxpay_payment/aborted.pt:25
+msgid "pxpay_payment_aborted_text"
+msgstr "Payment has been aborted"
+
+#. Default: "Sorry. Failed to complete your order. If you think the failure remains on our side, please contact"
+#: ./pxpay_payment/failed.pt:26
+msgid "pxpay_payment_failed_text"
+msgstr "Sorry, your order failed to complete. If you think the fault lies with us please contact"
+
+#. Default: "Your Order has been completed successfully."
+#: ./pxpay_payment/success.pt:27
+msgid "pxpay_payment_success_text"
+msgstr ""
+
+#. Default: "Something nasty is going on. Payment verification failed. If you think the failure remains on our side, please contact"
+#: ./pxpay_payment/success.pt:48
+msgid "pxpay_payment_verification_failed"
+msgstr "Something nasty is going on. Payment verification failed. If you think the fault lies with us, please contact"
+
+#. Default: "Transaction Status"
+#: ./pxpay_payment/failed.pt:36
+#: ./pxpay_payment/success.pt:32
+msgid "pxpay_responsetext"
+msgstr "Transaction Status"
+
+#. Default: "Six Payment"
+#: ./six_payment/__init__.py:29
+msgid "six_payment"
+msgstr "Six Payment"
+
+#. Default: "Payment has been aborted."
+#: ./six_payment/aborted.pt:25
+msgid "six_payment_aborted_text"
+msgstr "Payment has been aborted"
+
+#. Default: "Sorry. Failed to complete your order. If you think the failure remains on our side, please contact"
+#: ./six_payment/failed.pt:26
+msgid "six_payment_failed_text"
+msgstr "Sorry, your order failed to complete. If you think the fault lies with us please contact"
+
+#. Default: "Your Order has been completed successful."
+#: ./six_payment/success.pt:27
+msgid "six_payment_success_text"
+msgstr "Your order has completed successfully."
+
+#. Default: "Something nasty is going on. Payment verification failed. If you think the failure remains on our side, please contact"
+#: ./six_payment/success.pt:39
+msgid "six_payment_verification_failed"
+msgstr "Something nasty is going on. Payment verification failed. If you think the fault lies with us, please contact""
+
+#: ./pxpay_payment/failed.pt:30
+#: ./pxpay_payment/success.pt:52
+#: ./six_payment/failed.pt:30
+msgid "us"
+msgstr "us"
+

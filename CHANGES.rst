@@ -2,8 +2,27 @@
 Changelog
 =========
 
-0.4dev
-------
+0.6.dev0
+--------
+
+- no changes yet.
+
+
+0.5
+---
+
+- Add ``bda.plone.payment.cash_on_delivery.ICashOnDeliverySettings``.
+  [rnix]
+
+- Add "Cash on delivery" payment.
+  [rnix]
+
+- Add "Cash in advance" payment.
+  [rnix]
+
+
+0.4
+---
 
 - Remove ``available`` and ``default`` attributes from
   ``bda.plone.payment.cash.Cash``,
