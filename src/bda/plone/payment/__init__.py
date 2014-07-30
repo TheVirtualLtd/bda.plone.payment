@@ -48,11 +48,7 @@ class Payments(object):
     def vocab(self):
         site_name = api.portal.get().getId()
         adapters = getAdapters((self.context,), IPayment)
-        if site_name in ['ElectronzUK', 'clearPlone']:
-            return [(_[0], _[1].label) for _ in adapters if _[1].available and
-                    _[0] != u'pxpay_payment']
-        else:
-            return [(_[0], _[1].label) for _ in adapters if _[1].available]
+        return [(_[0], _[1].label) for _ in adapters if _[1].available]
 
     @property
     def default(self):
