@@ -117,7 +117,7 @@ msgstr "Order Number"
 #. Default: "DPS PaymentExpress"
 #: ./pxpay_payment/__init__.py:21
 msgid "pxpay_payment"
-msgstr "DPS PaymentExpress"
+msgstr "Credit Card - DPS PaymentExpress"
 
 #. Default: "Payment has been aborted."
 #: ./pxpay_payment/aborted.pt:25
