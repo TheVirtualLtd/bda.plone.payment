@@ -7,33 +7,44 @@ from bda.plone.orders.common import OrderData
 from tvl.payment.dps import dps
 from tvl.payment.dps.dps_parameters import DPSConfig
 from bda.plone.orders import interfaces as ifaces
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import getSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
+from plone import api
 from ..interfaces import IPaymentData
 from .. import Payment
 from .. import Payments
+import os
+import sys
+import traceback
 
 
 logger = logging.getLogger('bda.plone.payment')
 _ = MessageFactory('bda.plone.payment')
 
+DEPLOYMENT = os.environ.get('deployment', '')
+
 
 class PxPayPayment(Payment):
     pid = 'pxpay_payment'
-    label = _('pxpay_payment', 'DPS PaymentExpress')
+    label = _('pxpay_payment', 'Credit card - DPS PaymentExpress')
     available = True
     default = True
 
     def init_url(self, uid):
-        return '%s/@@pxpay_payment?uid=%s' % (self.context.absolute_url(), uid)
+        return '%s/@@pxpay_payment?uid=%s' % (api.portal.get().absolute_url(),
+                                              uid)
 
 
 class PxPayError(Exception):
     """Raised if PxPay payment return an error.
     """
 
+
 class PxPay(BrowserView):
 
     def __call__(self):
-        base_url = self.context.absolute_url()
+        base_url = api.portal.get().absolute_url()
         order_uid = self.request['uid']
         logger.info('Start')
         try:
@@ -47,15 +58,15 @@ class PxPay(BrowserView):
             req.MerchantReference = data['ordernumber']
             req.TxnData1 = 'IPurchaseProcess'
             req.TxnData2 = order_uid
-            parms = []
-            parms.append('description=%s' % data['description'])
-            parms.append('ordernumber=%s' % data['ordernumber'])
-            req.TxnData3 = ','.join(parms)
+            req.add_txn_parameters(ordernumber=data['ordernumber'])
+            if not api.user.is_anonymous():
+                req.add_txn_parameters(
+                    member_id=api.user.get_current().getMemberId())
             req.TxnType = 'Purchase'
-            #req.UrlFail = req.UrlSuccess = self.context.portal_url() + '/ipn'
+            # req.UrlFail = req.UrlSuccess = self.context.portal_url() + '/ipn'
             req.UrlSuccess = '%s/@@pxpay_payment_success' % base_url
             req.UrlFail = '%s/@@pxpay_payment_failed' % base_url
-            #backlink = '%s/@@pxpay_payment_aborted?uid=%s' \
+            # backlink = '%s/@@pxpay_payment_aborted?uid=%s' \
             #    % (base_url, order_uid)
             logger.info("Auth: %s" % req)
             result = req.getResponse()
@@ -77,9 +88,22 @@ def shopmaster_mail(context):
     return props.site_properties.email_from_address
 
 
+def restore_user(old_security_manager, old_roles):
+    if old_security_manager:
+        if old_roles:
+            api.user.grant_roles(roles=old_roles)
+        logger.warn("restoring user: {} roles: {}".format(
+            api.user.get_current(), old_roles))
+        setSecurityManager(old_security_manager)
+
+
 class PxPaySuccess(BrowserView):
 
     def verify(self):
+        old_security_manager = None  # Used for anon notification IPN
+        old_roles = None
+        receipt = None
+        success = None
         try:
             result = self.request.get('result', '')
             if result:
@@ -92,15 +116,15 @@ class PxPaySuccess(BrowserView):
                 logger.info(receipt)
 
                 uid = receipt.TxnData2
-                #payment = Payments(self.context).get('pxpay_payment')
+                # payment = Payments(self.context).get('pxpay_payment')
                 if receipt.ResponseText == 'APPROVED':
                     success = True
                 else:
                     success = False
-                    logger.error(u"Payment completion failed: '%s'" %
-                            receipt.MerchantReference)
+                    logger.error(u"Payment completion failed: '%s' uid %s" %
+                                 (receipt.MerchantReference, uid))
                 ordernumber = receipt.MerchantReference
-                tid = receipt.DpsTxnRef # ????
+                tid = receipt.DpsTxnRef  # ????
                 order_uid = IPaymentData(self.context).uid_for(ordernumber)
                 order_uid = receipt.TxnData2
                 payment = Payments(self.context).get('pxpay_payment')
@@ -119,13 +143,54 @@ class PxPaySuccess(BrowserView):
                 tid = None
 
             evt_data = {'tid': tid, 'receipt': receipt}
-            if success:
+
+            if (api.user.is_anonymous() and receipt and
+                    receipt.tvl_txn_parameters.get('member_id', None)):
+                # We need to act as the user in case of anon ipn from DPS.
+                # This is needed to send email and such if basket content is
+                # not available to Anon users
+                # Unfortunately we can't just use a context manager as things
+                # happen in events outside the block
+                old_security_manager = getSecurityManager()
+                with api.env.adopt_roles(roles=['Manager']):
+                    user = api.user.get(
+                        userid=receipt.tvl_txn_parameters['member_id'])
+                    # Need to have access to content
+                    if 'SiteAdministrator' not in api.user.get_roles():
+                        old_roles = api.user.get_roles()
+                        api.user.grant_roles(old_roles + ['SiteAdministrator'])
+
+                    newSecurityManager(self.request, user)
+                    logger.warn("promoting user: {} roles: {}".format(
+                        api.user.get_current(), old_roles))
+
+            # TID is added as part of event processing for success or fail.
+            # ensure events are only triggered once.
+            if False and tid in order.tid:
+                logger.warn("Payment with tid: {} has already been "
+                            "returned".format(tid))
+                return success
+            elif success:
                 payment.succeed(self.request, order_uid, evt_data)
+                restore_user(old_security_manager, old_roles)
                 return True
             else:
                 payment.failed(self.request, order_uid, evt_data)
+                restore_user(old_security_manager, old_roles)
                 return False
         except Exception, e:
+            restore_user(old_security_manager, old_roles)
+
+            msg = "Receipt: {}\nsuccess: {}\n\n {}".format(
+                receipt,
+                success,
+                ''.join(traceback.format_exception(*sys.exc_info())))
+
+            api.portal.send_email(
+                recipient='support@thevirtual.co.nz',
+                subject="{} - {} PXPay Payment Error".format(
+                    DEPLOYMENT, api.portal.get().Title()),
+                body=msg)
             logger.error(u"Payment verification failed: '%s'" % str(e))
             return False
 
@@ -135,7 +200,6 @@ class PxPaySuccess(BrowserView):
             return self._receipt
         except AttributeError:
             return None
-
 
     @property
     def shopmaster_mail(self):
@@ -157,7 +221,7 @@ class PxPayFailed(BrowserView):
             self._receipt = receipt
             logger.info(receipt)
             uid = receipt.TxnData2
-            tid = receipt.DpsTxnRef # ????
+            tid = receipt.DpsTxnRef  # ????
         else:
             uid = self.request.get('uid', '')
             tid = None
@@ -165,7 +229,7 @@ class PxPayFailed(BrowserView):
 
         payment = Payments(self.context).get('pxpay_payment')
         payment.failed(self.request, uid, {'tid': tid,
-            'receipt': receipt})
+                       'receipt': receipt})
 
     @property
     def receipt(self):
