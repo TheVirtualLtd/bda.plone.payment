@@ -28,8 +28,6 @@ DEPLOYMENT = os.environ.get('deployment', '')
 class PxPayPayment(Payment):
     pid = 'pxpay_payment'
     label = _('pxpay_payment', 'Credit card - DPS PaymentExpress')
-    available = True
-    default = True
 
     def init_url(self, uid):
         return '%s/@@pxpay_payment?uid=%s' % (api.portal.get().absolute_url(),
@@ -88,12 +86,16 @@ def shopmaster_mail(context):
     return props.site_properties.email_from_address
 
 
-def restore_user(old_security_manager, old_roles):
+def restore_user(old_security_manager, new_roles):
     if old_security_manager:
-        if old_roles:
-            api.user.grant_roles(roles=old_roles)
-        logger.warn("restoring user: {} roles: {}".format(
-            api.user.get_current(), old_roles))
+        user = api.user.get_current()
+        if new_roles:
+            api.user.revoke_roles(user=user, roles=new_roles)
+        logger.info("restoring user: {} roles: {}".format(
+            user, api.user.get_roles()))
+        if new_roles:
+            for role in new_roles:
+                assert role not in api.user.get_roles()
         setSecurityManager(old_security_manager)
 
 
@@ -101,7 +103,7 @@ class PxPaySuccess(BrowserView):
 
     def verify(self):
         old_security_manager = None  # Used for anon notification IPN
-        old_roles = None
+        new_roles = None
         receipt = None
         success = None
         try:
@@ -154,32 +156,37 @@ class PxPaySuccess(BrowserView):
                 old_security_manager = getSecurityManager()
                 with api.env.adopt_roles(roles=['Manager']):
                     user = api.user.get(
-                        userid=receipt.tvl_txn_parameters['member_id'])
-                    # Need to have access to content
-                    if 'SiteAdministrator' not in api.user.get_roles():
-                        old_roles = api.user.get_roles()
-                        api.user.grant_roles(old_roles + ['SiteAdministrator'])
-
+                        # userid=receipt.tvl_txn_parameters['member_id'])
+                        userid='amauser')
                     newSecurityManager(self.request, user)
-                    logger.warn("promoting user: {} roles: {}".format(
-                        api.user.get_current(), old_roles))
+                    # Need to have access to content
+                    old_roles = api.user.get_roles()
+                    if set(['SiteAdministrator',
+                            'Manager']).isdisjoint(old_roles):
+                        new_roles = ['SiteAdministrator']
+                        api.user.grant_roles(
+                            user=user, roles=new_roles)
+                        logger.info("user {} roles: {} : new roles: {}".format(
+                            api.user.get_current(), api.user.get_roles()))
+                logger.info("promoting user: {} roles: {}".format(
+                    api.user.get_current(), new_roles))
 
             # TID is added as part of event processing for success or fail.
             # ensure events are only triggered once.
-            if False and tid in order.tid:
-                logger.warn("Payment with tid: {} has already been "
+            if tid in order.tid:
+                logger.info("Payment with tid: {} has already been "
                             "returned".format(tid))
                 return success
             elif success:
                 payment.succeed(self.request, order_uid, evt_data)
-                restore_user(old_security_manager, old_roles)
+                restore_user(old_security_manager, new_roles)
                 return True
             else:
                 payment.failed(self.request, order_uid, evt_data)
-                restore_user(old_security_manager, old_roles)
+                restore_user(old_security_manager, new_roles)
                 return False
         except Exception, e:
-            restore_user(old_security_manager, old_roles)
+            restore_user(old_security_manager, new_roles)
 
             msg = "Receipt: {}\nsuccess: {}\n\n {}".format(
                 receipt,

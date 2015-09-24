@@ -43,7 +43,7 @@ msgstr ""
 #. Default: "Thanks for your Order. You have choosen to pay in cash. Please print displayed order number and hand it at cash desk."
 #: ./cash/cash.pt:28
 msgid "cash_text"
-msgstr "Thank you for you order. You have chosen to pay in cash. Please print the displayed order number and hand it in at the cash desk."
+msgstr "Thank you for you order. You have chosen to pay in cash. Please make your payment when you collect your order."
 
 #. Default: "Debit Order"
 #: ./debit_order/__init__.py:13
