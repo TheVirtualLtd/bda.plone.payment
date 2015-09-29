@@ -16,7 +16,7 @@ CURRENT_PATH=`pwd`
 CATALOGNAME="bda.plone.payment"
 
 # List of languages
-LANGUAGES="en en-nz en-gb de fr it no"
+LANGUAGES="en en-gb en-nz de fr it nl no"
 
 # Create locales folder structure for languages
 install -d locales
@@ -71,8 +71,8 @@ for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
         # For more info see http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4
     
         # Compile .po to .mo
-        MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
-         echo "Compiling $MO"
-         msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
+        # MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
+        # echo "Compiling $MO"
+        # msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
     fi
 done
