@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-11 03:23+0000\n"
+"POT-Creation-Date: 2015-11-11 04:09+0000\n"
 "PO-Revision-Date: 2014-06-04 14:52 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -69,7 +69,7 @@ msgstr "Thank you for your order. Your account will be debited by the total orde
 msgid "direct_credit"
 msgstr ""
 
-#. Default: "Please complete your direct credit as per the payment instructions in your order email Thanks for your order."
+#. Default: "Please complete your direct credit as per the payment instructions in your order email. Thanks for your order."
 #: ./direct_credit/direct_credit.pt:28
 msgid "direct_credit_text"
 msgstr ""

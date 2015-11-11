@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-11 03:23+0000\n"
+"POT-Creation-Date: 2015-11-11 04:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "direct_credit"
 msgstr ""
 
-#. Default: "Please complete your direct credit as per the payment instructions in your order email Thanks for your order."
+#. Default: "Please complete your direct credit as per the payment instructions in your order email. Thanks for your order."
 #: ./direct_credit/direct_credit.pt:28
 msgid "direct_credit_text"
 msgstr ""

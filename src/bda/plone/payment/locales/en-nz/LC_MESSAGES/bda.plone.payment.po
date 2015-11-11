@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-11 03:23+0000\n"
+"POT-Creation-Date: 2015-11-11 04:09+0000\n"
 "PO-Revision-Date: 2014-05-08 15:40 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -42,7 +42,6 @@ msgstr ""
 
 #. Default: "Thanks for your Order. You have choosen to pay in cash. Please print displayed order number and hand it at cash desk."
 #: ./cash/cash.pt:28
-#, fuzzy
 msgid "cash_text"
 msgstr "Thank you for ordering from us. Please make your payment when you collect your order."
 
@@ -71,10 +70,10 @@ msgstr "Thank you for your order. Your account will be debited by the total orde
 msgid "direct_credit"
 msgstr "Direct Credit"
 
-#. Default: "Please complete your direct credit as per the payment instructions in your order email Thanks for your order."
+#. Default: "Please complete your direct credit as per the payment instructions in your order email. Thanks for your order."
 #: ./direct_credit/direct_credit.pt:28
 msgid "direct_credit_text"
-msgstr ""
+msgstr "Please complete your direct credit as per the instructions in your order email. Thanks for your order."
 
 #. Default: "Invoice"
 #: ./invoice/__init__.py:13
@@ -97,7 +96,6 @@ msgstr "Order Received"
 #: ./cash/cash.pt:25
 #: ./cash_in_advance/cash_in_advance.pt:25
 #: ./cash_on_delivery/cash_on_delivery.pt:25
-#, fuzzy
 msgid "order_show_id"
 msgstr "Your Order Number: ${number}"
 
