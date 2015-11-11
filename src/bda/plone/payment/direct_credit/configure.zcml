@@ -11,7 +11,7 @@
 
   <browser:page
     for="*"
-    name="direct_credited"
+    name="direct_credit_done"
     template="direct_credit.pt"
     class=".DirectCreditFinished"
     permission="zope2.View" />

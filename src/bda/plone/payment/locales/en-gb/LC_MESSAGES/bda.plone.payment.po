@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2014-10-02 01:05+0000\n"
+"POT-Creation-Date: 2015-11-11 03:23+0000\n"
 "PO-Revision-Date: 2014-06-04 14:52 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -44,6 +44,16 @@ msgstr ""
 msgid "cash_text"
 msgstr "Thank you for you order. You have chosen to pay in cash. Please print the displayed order number and hand it in at the cash desk."
 
+#. Default: "Cheque"
+#: ./cheque/__init__.py:13
+msgid "cheque"
+msgstr ""
+
+#. Default: "Please send through your cheque as per the payment instructions in your order email. Thanks for your order."
+#: ./cheque/cheque.pt:28
+msgid "cheque_text"
+msgstr ""
+
 #. Default: "Debit Order"
 #: ./debit_order/__init__.py:13
 msgid "debit_order"
@@ -53,6 +63,16 @@ msgstr "Debit Order"
 #: ./debit_order/debit_order.pt:28
 msgid "debit_order_text"
 msgstr "Thank you for your order. Your account will be debited by the total order value. As soon as the debit order clears your order will be shipped."
+
+#. Default: "Direct Credit"
+#: ./direct_credit/__init__.py:13
+msgid "direct_credit"
+msgstr ""
+
+#. Default: "Please complete your direct credit as per the payment instructions in your order email Thanks for your order."
+#: ./direct_credit/direct_credit.pt:28
+msgid "direct_credit_text"
+msgstr ""
 
 #. Default: "Invoice"
 #: ./invoice/__init__.py:13
@@ -71,10 +91,11 @@ msgstr "Thank you for your order. You will shortly receive your invoice by email
 msgid "order_received"
 msgstr "Order Received"
 
-#. Default: "Your Order number: ${number}"
+#. Default: "<span>x</span>: ${number}"
 #: ./cash/cash.pt:25
 #: ./cash_in_advance/cash_in_advance.pt:25
 #: ./cash_on_delivery/cash_on_delivery.pt:25
+#, fuzzy
 msgid "order_show_id"
 msgstr "Your Order Number: ${number}"
 
@@ -134,7 +155,7 @@ msgid "pxpay_merchantreference"
 msgstr "Order Number"
 
 #. Default: "Credit card - DPS PaymentExpress"
-#: ./pxpay_payment/__init__.py:21
+#: ./pxpay_payment/__init__.py:30
 msgid "pxpay_payment"
 msgstr "Credit Card - DPS PaymentExpress"
 
@@ -194,4 +215,11 @@ msgstr "Something nasty is going on. Payment verification failed. If you think t
 #: ./six_payment/failed.pt:30
 msgid "us"
 msgstr "us"
+
+#. Default: "Your Order number"
+#: ./cash/cash.pt:24
+#: ./cash_in_advance/cash_in_advance.pt:24
+#: ./cash_on_delivery/cash_on_delivery.pt:24
+msgid "your_order_order_id"
+msgstr ""
 

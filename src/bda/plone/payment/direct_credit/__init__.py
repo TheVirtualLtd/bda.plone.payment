@@ -10,7 +10,7 @@ _ = MessageFactory('bda.plone.payment')
 
 class DirectCredit(Payment):
     pid = 'direct_credit'
-    label = _('direct_credit', default=u'DirectCredit')
+    label = _('direct_credit', default=u'Direct Credit')
 
     def init_url(self, uid):
         return '%s/@@direct_credit?uid=%s' % (self.context.absolute_url(), uid)
@@ -22,7 +22,8 @@ class DoDirectCredit(BrowserView):
         uid = self.request['uid']
         payment = Payments(self.context).get('direct_credit')
         payment.succeed(self.request, uid)
-        url = '%s/@@directcredituid=%s' % (self.context.absolute_url(), uid)
+        url = '%s/@@direct_credit_done?uid=%s' % (
+            self.context.absolute_url(), uid)
         self.request.response.redirect(url)
 
 

@@ -26,7 +26,8 @@
     </p>
 
     <p i18n:translate="cheque_text">
-      Thanks for your Order. You will receive the Invoice by E-Mail.
+        Please send through your cheque as per the payment instructions in your order email.
+        Thanks for your order.
     </p>
 
     <a href=""

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-12-16 20:37+0000\n"
+"POT-Creation-Date: 2015-11-11 03:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,16 @@ msgstr ""
 msgid "cash_text"
 msgstr ""
 
+#. Default: "Cheque"
+#: ./cheque/__init__.py:13
+msgid "cheque"
+msgstr ""
+
+#. Default: "Please send through your cheque as per the payment instructions in your order email. Thanks for your order."
+#: ./cheque/cheque.pt:28
+msgid "cheque_text"
+msgstr ""
+
 #. Default: "Debit Order"
 #: ./debit_order/__init__.py:13
 msgid "debit_order"
@@ -52,6 +62,16 @@ msgstr ""
 #. Default: "Thanks for your Order. Your banking account will be charged by order value. As soon as debit order was successful, your offer gets delivered."
 #: ./debit_order/debit_order.pt:28
 msgid "debit_order_text"
+msgstr ""
+
+#. Default: "Direct Credit"
+#: ./direct_credit/__init__.py:13
+msgid "direct_credit"
+msgstr ""
+
+#. Default: "Please complete your direct credit as per the payment instructions in your order email Thanks for your order."
+#: ./direct_credit/direct_credit.pt:28
+msgid "direct_credit_text"
 msgstr ""
 
 #. Default: "Invoice"
@@ -79,6 +99,7 @@ msgid "order_show_id"
 msgstr ""
 
 #. Default: "Payment Aborted"
+#: ./pxpay_payment/aborted.pt:22
 #: ./six_payment/aborted.pt:22
 msgid "payment_aborted"
 msgstr ""
@@ -91,18 +112,76 @@ msgid "payment_done"
 msgstr ""
 
 #. Default: "Payment Error"
+#: ./pxpay_payment/success.pt:44
 #: ./six_payment/success.pt:35
 msgid "payment_error"
 msgstr ""
 
 #. Default: "Payment Failed"
+#: ./pxpay_payment/failed.pt:22
 #: ./six_payment/failed.pt:22
 msgid "payment_failed"
 msgstr ""
 
 #. Default: "Payment Success"
+#: ./pxpay_payment/success.pt:24
 #: ./six_payment/success.pt:24
 msgid "payment_success"
+msgstr ""
+
+#. Default: "Auth Code"
+#: ./pxpay_payment/failed.pt:38
+#: ./pxpay_payment/success.pt:34
+msgid "pxpay_authcode"
+msgstr ""
+
+#. Default: "Settlement Date"
+#: ./pxpay_payment/failed.pt:39
+#: ./pxpay_payment/success.pt:35
+msgid "pxpay_datesettlement"
+msgstr ""
+
+#. Default: "Transaction Reference"
+#: ./pxpay_payment/failed.pt:40
+#: ./pxpay_payment/success.pt:36
+msgid "pxpay_dpstxnref"
+msgstr ""
+
+#. Default: "Order Number"
+#: ./pxpay_payment/failed.pt:37
+#: ./pxpay_payment/success.pt:33
+msgid "pxpay_merchantreference"
+msgstr ""
+
+#. Default: "Credit card - DPS PaymentExpress"
+#: ./pxpay_payment/__init__.py:30
+msgid "pxpay_payment"
+msgstr ""
+
+#. Default: "Payment has been aborted."
+#: ./pxpay_payment/aborted.pt:25
+msgid "pxpay_payment_aborted_text"
+msgstr ""
+
+#. Default: "Sorry. Failed to complete your order. If you think the failure remains on our side, please contact"
+#: ./pxpay_payment/failed.pt:26
+msgid "pxpay_payment_failed_text"
+msgstr ""
+
+#. Default: "Your Order has been completed successfully."
+#: ./pxpay_payment/success.pt:27
+msgid "pxpay_payment_success_text"
+msgstr ""
+
+#. Default: "Something nasty is going on. Payment verification failed. If you think the failure remains on our side, please contact"
+#: ./pxpay_payment/success.pt:48
+msgid "pxpay_payment_verification_failed"
+msgstr ""
+
+#. Default: "Transaction Status"
+#: ./pxpay_payment/failed.pt:36
+#: ./pxpay_payment/success.pt:32
+msgid "pxpay_responsetext"
 msgstr ""
 
 #. Default: "Six Payment"
@@ -130,8 +209,9 @@ msgstr ""
 msgid "six_payment_verification_failed"
 msgstr ""
 
+#: ./pxpay_payment/failed.pt:30
+#: ./pxpay_payment/success.pt:52
 #: ./six_payment/failed.pt:30
-#: ./six_payment/success.pt:43
 msgid "us"
 msgstr ""
 
