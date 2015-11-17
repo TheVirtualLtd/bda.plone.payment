@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-11 04:09+0000\n"
+"POT-Creation-Date: 2015-11-17 23:41+0000\n"
 "PO-Revision-Date: 2014-06-04 14:52 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"

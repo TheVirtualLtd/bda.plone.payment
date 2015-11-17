@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-11 04:09+0000\n"
+"POT-Creation-Date: 2015-11-17 23:41+0000\n"
 "PO-Revision-Date: 2014-05-08 15:40 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -53,7 +53,7 @@ msgstr ""
 #. Default: "Please send through your cheque as per the payment instructions in your order email. Thanks for your order."
 #: ./cheque/cheque.pt:28
 msgid "cheque_text"
-msgstr ""
+msgstr "Please send through your cheque as per the payment instructions in your order email. Thank you for your order."
 
 #. Default: "Debit Order"
 #: ./debit_order/__init__.py:13
@@ -73,7 +73,7 @@ msgstr "Direct Credit"
 #. Default: "Please complete your direct credit as per the payment instructions in your order email. Thanks for your order."
 #: ./direct_credit/direct_credit.pt:28
 msgid "direct_credit_text"
-msgstr "Please complete your direct credit as per the instructions in your order email. Thanks for your order."
+msgstr "Please make your payment as per the payment instructions in your order email. Thank you for your order."
 
 #. Default: "Invoice"
 #: ./invoice/__init__.py:13
