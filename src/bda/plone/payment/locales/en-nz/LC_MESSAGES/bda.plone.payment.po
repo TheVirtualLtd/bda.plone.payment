@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-17 23:41+0000\n"
+"POT-Creation-Date: 2015-11-17 23:59+0000\n"
 "PO-Revision-Date: 2014-05-08 15:40 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -172,7 +172,7 @@ msgstr "Sorry, your order failed to complete. Please contact us if you require a
 #. Default: "Your Order has been completed successfully."
 #: ./pxpay_payment/success.pt:27
 msgid "pxpay_payment_success_text"
-msgstr "Your order has been completed successfully."
+msgstr "Your order has been completed successfully. Thank you for ordering from us."
 
 #. Default: "Something nasty is going on. Payment verification failed. If you think the failure remains on our side, please contact"
 #: ./pxpay_payment/success.pt:48
