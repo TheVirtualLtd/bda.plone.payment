@@ -80,11 +80,15 @@ class Payment(object):
         settings = IPaymentSettings(self.context)
         return self.pid == settings.default
 
-    def succeed(self, request, order_uid, data=dict()):
+    def succeed(self, request, order_uid, data=None):
+        if data is None:
+            data = dict()
         evt = PaymentSuccessEvent(self.context, request, self, order_uid, data)
         notify(evt)
 
-    def failed(self, request, order_uid, data=dict()):
+    def failed(self, request, order_uid, data=None):
+        if data is None:
+            data = dict()
         evt = PaymentFailedEvent(self.context, request, self, order_uid, data)
         notify(evt)
 
