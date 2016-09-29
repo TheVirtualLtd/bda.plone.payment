@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+  <adapter name="direct_credit" factory=".DirectCredit" />
+
+  <browser:page
+    for="*"
+    name="direct_credit"
+    class=".DoDirectCredit"
+    permission="zope2.View" />
+
+  <browser:page
+    for="*"
+    name="direct_credit_done"
+    template="direct_credit.pt"
+    class=".DirectCreditFinished"
+    permission="zope2.View" />
+
+</configure>

@@ -4,7 +4,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 
-version = '0.7.dev0'
+version = '0.7.dev0.1'
 shortdesc = "Payment"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'CHANGES.rst')).read()
@@ -27,7 +27,7 @@ setup(
     author_email='dev@bluedynamics.com',
     license='GNU General Public Licence',
     packages=find_packages('src'),
-    package_dir = {'': 'src'},
+    package_dir={'': 'src'},
     namespace_packages=['bda', 'bda.plone'],
     include_package_data=True,
     zip_safe=False,

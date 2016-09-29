@@ -10,6 +10,7 @@ from zope.component import getAdapters
 from zope.event import notify
 from zope.interface import implementer
 from zope.interface import Interface
+from plone import api
 
 
 @implementer(IPaymentEvent)
@@ -48,6 +49,7 @@ class Payments(object):
 
     @property
     def vocab(self):
+        site_name = api.portal.get().getId()
         adapters = getAdapters((self.context,), IPayment)
         return [(_[0], _[1].label) for _ in adapters if _[1].available]
 
@@ -81,11 +83,15 @@ class Payment(object):
         settings = IPaymentSettings(self.context)
         return self.pid == settings.default
 
-    def succeed(self, request, order_uid, data=dict()):
+    def succeed(self, request, order_uid, data=None):
+        if data is None:
+            data = dict()
         evt = PaymentSuccessEvent(self.context, request, self, order_uid, data)
         notify(evt)
 
-    def failed(self, request, order_uid, data=dict()):
+    def failed(self, request, order_uid, data=None):
+        if data is None:
+            data = dict()
         evt = PaymentFailedEvent(self.context, request, self, order_uid, data)
         notify(evt)
 

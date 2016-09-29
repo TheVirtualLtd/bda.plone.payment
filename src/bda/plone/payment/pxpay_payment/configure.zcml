@@ -1,0 +1,42 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <adapter name="pxpay_payment" factory=".PxPayPayment" />
+
+  <browser:page
+    for="*"
+    name="pxpay_payment"
+    class=".PxPay"
+    permission="zope2.View" />
+
+  <browser:page
+    for="*"
+    name="pxpay_payment_success"
+    template="success.pt"
+    class=".PxPaySuccess"
+    permission="zope2.View" />
+
+  <browser:page
+    for="*"
+    name="pxpay_payment_failed"
+    template="failed.pt"
+    class=".PxPayFailed"
+    permission="zope2.View" />
+
+  <browser:page
+    for="*"
+    name="pxpay_payment_aborted"
+    template="aborted.pt"
+    class=".PxPayFailed"
+    permission="zope2.View" />
+
+  <subscriber
+    for="bda.plone.payment.interfaces.IPaymentFailedEvent"
+    handler=".payment_failed"/>
+
+  <subscriber
+    for="bda.plone.payment.interfaces.IPaymentSuccessEvent"
+    handler=".payment_success"/>
+
+</configure>

@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+  <adapter name="cheque" factory=".Cheque" />
+
+  <browser:page
+    for="*"
+    name="cheque"
+    class=".DoCheque"
+    permission="zope2.View" />
+
+  <browser:page
+    for="*"
+    name="cheque_done"
+    template="cheque.pt"
+    class=".ChequeFinished"
+    permission="zope2.View" />
+
+</configure>

@@ -84,3 +84,25 @@ class IPaymentData(Interface):
             'ordernumber': '1234567890',
         }
         """
+
+
+class ISurcharge(Interface):
+    """Interface for providing surcharge information
+    """
+
+    currency = Attribute(u"Currency of cash on delivery")
+
+    fixed_surcharge = Attribute(u"Fixed surcharge in gross to add to total")
+
+    percent_surcharge = Attribute(u"Percentage surcharge to be added to total")
+
+    label = Attribute(u"Payment method label")
+
+    description = Attribute(u"Payment method description")
+
+    def surcharge(total):  # noqa: N805
+        """Calculate surcharge based on fixed and/or percentage surcharge given
+        the total from the cart and returned as a Decimal.
+
+        :param total: working total form cart
+        """
