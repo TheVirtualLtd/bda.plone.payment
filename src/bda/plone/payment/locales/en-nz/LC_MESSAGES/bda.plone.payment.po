@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-17 23:59+0000\n"
+"POT-Creation-Date: 2016-08-29 05:25+0000\n"
 "PO-Revision-Date: 2014-05-08 15:40 +1200\n"
 "Last-Translator: Robyn James <robyn@thevirtual.co.nz>\n"
 "Language-Team: \n"
@@ -14,6 +14,10 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: bda.plone.payment\n"
 "X-Is-Fallback-For: en-au\n"
+
+#: ./profiles.zcml:12
+msgid "bda.plone.payment"
+msgstr ""
 
 #. Default: "Cash"
 #: ./cash/__init__.py:15
@@ -154,10 +158,11 @@ msgstr "Transaction Reference"
 msgid "pxpay_merchantreference"
 msgstr "Order Number"
 
-#. Default: "Credit card - DPS PaymentExpress"
-#: ./pxpay_payment/__init__.py:30
+#. Default: "Credit card - a ${percent} surcharge will be added to the order total"
+#: ./pxpay_payment/__init__.py:61
+#, fuzzy
 msgid "pxpay_payment"
-msgstr "Credit Card - DPS PaymentExpress"
+msgstr "Credit card - a ${percent} surcharge will be added to the order total"
 
 #. Default: "Payment has been aborted."
 #: ./pxpay_payment/aborted.pt:25
@@ -222,4 +227,3 @@ msgstr "us"
 #: ./cash_on_delivery/cash_on_delivery.pt:24
 msgid "your_order_order_id"
 msgstr ""
-

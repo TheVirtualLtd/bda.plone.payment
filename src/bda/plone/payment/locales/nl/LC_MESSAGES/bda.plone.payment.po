@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bda.plone.payment\n"
-"POT-Creation-Date: 2015-11-17 23:59+0000\n"
+"POT-Creation-Date: 2016-08-29 05:25+0000\n"
 "PO-Revision-Date: 2015-01-28 15:13+0100\n"
 "Last-Translator: INTK <info@intk.com>\n"
 "Language-Team: \n"
@@ -15,6 +15,10 @@ msgstr ""
 "Domain: bda.plone.payment\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 "X-Generator: Poedit 1.7.4\n"
+
+#: ./profiles.zcml:12
+msgid "bda.plone.payment"
+msgstr ""
 
 #. Default: "Cash"
 #: ./cash/__init__.py:15
@@ -155,8 +159,8 @@ msgstr ""
 msgid "pxpay_merchantreference"
 msgstr ""
 
-#. Default: "Credit card - DPS PaymentExpress"
-#: ./pxpay_payment/__init__.py:30
+#. Default: "Credit card - a ${percent} surcharge will be added to the order total"
+#: ./pxpay_payment/__init__.py:61
 msgid "pxpay_payment"
 msgstr ""
 
@@ -223,4 +227,3 @@ msgstr "ons"
 #: ./cash_on_delivery/cash_on_delivery.pt:24
 msgid "your_order_order_id"
 msgstr "Uw ordernummer: ${number}"
-

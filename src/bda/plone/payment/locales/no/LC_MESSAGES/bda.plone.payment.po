@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-17 23:59+0000\n"
+"POT-Creation-Date: 2016-08-29 05:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: ./profiles.zcml:12
+msgid "bda.plone.payment"
+msgstr ""
 
 #. Default: "Cash"
 #: ./cash/__init__.py:15
@@ -153,8 +157,8 @@ msgstr ""
 msgid "pxpay_merchantreference"
 msgstr ""
 
-#. Default: "Credit card - DPS PaymentExpress"
-#: ./pxpay_payment/__init__.py:30
+#. Default: "Credit card - a ${percent} surcharge will be added to the order total"
+#: ./pxpay_payment/__init__.py:61
 msgid "pxpay_payment"
 msgstr ""
 
@@ -221,4 +225,3 @@ msgstr ""
 #: ./cash_on_delivery/cash_on_delivery.pt:24
 msgid "your_order_order_id"
 msgstr ""
-
