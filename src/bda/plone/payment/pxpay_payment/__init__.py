@@ -31,37 +31,42 @@ class PxPayPayment(Payment):
 
     @property
     def label(self):
-        settings = ISurcharge(self.context)
-        if settings.percent_surcharge and settings.fixed_surcharge:
-            return _('pxpay_payment',
-                     default=u'Credit card - DPS PaymentExpress - '
-                             u'surcharge of ${percent}% '
-                             u'and ${fixed} ${currency} '
-                             u'added to the order total',
-                     mapping={
-                         'percent': settings.percent_surcharge,
-                         'fixed': settings.fixed_surcharge,
-                         'currency': settings.currency
-                         })
-        elif settings.percent_surcharge:
-            return _('pxpay_payment',
-                     default=u'Credit card - DPS PaymentExpress - '
-                             u'${percent}% surcharge '
-                             u'added to the order total',
-                     mapping={
-                         'percent': settings.percent_surcharge,
-                         })
-        elif settings.fixed_surcharge:
-            return _('pxpay_payment',
-                     default=u'Credit card - DPS PaymentExpress - '
-                             u'surcharge of ${fixed} ${currency} '
-                             u'added to the order total',
-                     mapping={
-                         'fixed': settings.fixed_surcharge,
-                         'currency': settings.currency,
-                         })
-        else:
-            return _('pxpay_payment', 'Credit card - DPS PaymentExpress')
+        try:
+            settings = ISurcharge(self.context)
+        except TypeError:
+            settings = None
+
+        if settings:
+            if settings.percent_surcharge and settings.fixed_surcharge:
+                return _('pxpay_payment',
+                         default=u'Credit card - DPS PaymentExpress - '
+                                 u'surcharge of ${percent}% '
+                                 u'and ${fixed} ${currency} '
+                                 u'added to the order total',
+                         mapping={
+                             'percent': settings.percent_surcharge,
+                             'fixed': settings.fixed_surcharge,
+                             'currency': settings.currency
+                             })
+            elif settings.percent_surcharge:
+                return _('pxpay_payment',
+                         default=u'Credit card - DPS PaymentExpress - '
+                                 u'${percent}% surcharge '
+                                 u'added to the order total',
+                         mapping={
+                             'percent': settings.percent_surcharge,
+                             })
+            elif settings.fixed_surcharge:
+                return _('pxpay_payment',
+                         default=u'Credit card - DPS PaymentExpress - '
+                                 u'surcharge of ${fixed} ${currency} '
+                                 u'added to the order total',
+                         mapping={
+                             'fixed': settings.fixed_surcharge,
+                             'currency': settings.currency,
+                             })
+
+        return _('pxpay_payment', 'Credit card - DPS PaymentExpress')
 
     def init_url(self, uid):
         return '%s/@@pxpay_payment?uid=%s' % (api.portal.get().absolute_url(),
