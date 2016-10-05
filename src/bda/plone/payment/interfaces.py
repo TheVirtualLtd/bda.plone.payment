@@ -100,9 +100,16 @@ class ISurcharge(Interface):
 
     description = Attribute(u"Payment method description")
 
-    def surcharge(total):  # noqa: N805
+    def surcharge_net(working_total):  # noqa: N805
         """Calculate surcharge based on fixed and/or percentage surcharge given
         the total from the cart and returned as a Decimal.
 
-        :param total: working total form cart
+        :param total: working total from cart
+        """
+
+    def surcharge_vat(working_total):  # noqa: N805
+        """Calculate surcharge vat based on fixed and/or percentage surcharge
+        given the total from the cart and returned as a Decimal.
+
+        :param total: working total from cart
         """
