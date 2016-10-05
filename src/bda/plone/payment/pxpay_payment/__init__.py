@@ -1,20 +1,22 @@
-import logging
-from zExceptions import Redirect
-from zope.i18nmessageid import MessageFactory
-from Products.Five import BrowserView
-from Products.CMFCore.utils import getToolByName
-from bda.plone.orders.common import OrderData
-from tvl.payment.dps import dps
-from tvl.payment.dps.dps_parameters import DPSConfig
-from bda.plone.orders import interfaces as ifaces
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import getSecurityManager
-from AccessControl.SecurityManagement import setSecurityManager
-from plone import api
-from ..interfaces import IPaymentData
-from ..interfaces import ISurcharge
+# -*- coding: utf-8 -*-
 from .. import Payment
 from .. import Payments
+from ..interfaces import IPaymentData
+from ..interfaces import ISurcharge
+from AccessControl.SecurityManagement import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from bda.plone.orders import interfaces as ifaces
+from bda.plone.orders.common import OrderData
+from plone import api
+from plone.protect.authenticator import createToken
+from tvl.payment.dps import dps
+from tvl.payment.dps.dps_parameters import DPSConfig
+from zExceptions import Redirect
+from zope.i18nmessageid import MessageFactory
+import logging
 import os
 import sys
 import traceback
@@ -100,11 +102,12 @@ class PxPay(BrowserView):
                 req.add_txn_parameters(
                     member_id=api.user.get_current().getMemberId())
             req.TxnType = 'Purchase'
-            # req.UrlFail = req.UrlSuccess = self.context.portal_url() + '/ipn'
-            req.UrlSuccess = '%s/@@pxpay_payment_success' % base_url
+            req.UrlSuccess = '{base_url}/{view}?_authenticator={token}'.format(
+                    view='@@pxpay_payment_success',
+                    base_url=base_url,
+                    token=createToken()
+                    )
             req.UrlFail = '%s/@@pxpay_payment_failed' % base_url
-            # backlink = '%s/@@pxpay_payment_aborted?uid=%s' \
-            #    % (base_url, order_uid)
             logger.info("Auth: %s" % req)
             result = req.getResponse()
             logger.info(result)
@@ -114,8 +117,13 @@ class PxPay(BrowserView):
             redirect_url = result.URI
         except Exception, e:
             logger.error(u"Could not initialize payment: '%s'" % str(e))
-            redirect_url = '%s/@@pxpay_payment_failed?uid=%s' \
-                % (base_url, order_uid)
+            redirect_url = ('{base_url}/{view}?'
+                            'uid={order_uid}_authenticator={token}').format(
+                            view='@@pxpay_payment_failed',
+                            base_url=base_url,
+                            order_uid=order_uid,
+                            token=createToken()
+                            )
 
         raise Redirect(redirect_url)
 
@@ -157,7 +165,6 @@ class PxPaySuccess(BrowserView):
                 logger.info(receipt)
 
                 uid = receipt.TxnData2
-                # payment = Payments(self.context).get('pxpay_payment')
                 if receipt.ResponseText == 'APPROVED':
                     success = True
                 else:
@@ -165,7 +172,7 @@ class PxPaySuccess(BrowserView):
                     logger.error(u"Payment completion failed: '%s' uid %s" %
                                  (receipt.MerchantReference, uid))
                 ordernumber = receipt.MerchantReference
-                tid = receipt.DpsTxnRef  # ????
+                tid = receipt.DpsTxnRef
                 order_uid = IPaymentData(self.context).uid_for(ordernumber)
                 order_uid = receipt.TxnData2
                 payment = Payments(self.context).get('pxpay_payment')
@@ -268,7 +275,7 @@ class PxPayFailed(BrowserView):
             self._receipt = receipt
             logger.info(receipt)
             uid = receipt.TxnData2
-            tid = receipt.DpsTxnRef  # ????
+            tid = receipt.DpsTxnRef
         else:
             uid = self.request.get('uid', '')
             tid = None
